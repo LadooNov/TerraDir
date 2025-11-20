@@ -4,6 +4,12 @@ rg_name = "Dev-Todo-Resource-Group"
 location = "central india"
 }
 
+module "todo-rg2" {
+source = "../../Child Module/azurerm_azure_resourcegrup"
+rg_name = "Dev-Todo-Resource-Group"
+location = "central india"
+}
+
 module "todo-vnet" {
   depends_on = [ module.todo-rg ]
   source              = "../../Child Module/Azurerm_VirtualNetwork"
@@ -42,18 +48,18 @@ module "todo-nic" {
   subnet_id            = module.todo-frontend-subnet.subnet_id
 }
 
-module "todo-linux-VM" {
-  depends_on = [ module.todo-nic ]
-  source              = "../../Child Module/Azurerm_VirtualMachine"
-  public_ip_name      = "Dev-Todo-Public-IP"
-  todo-linux_VM       = "Dev-Todo-Linux-VM"
-  admin_username      = "adminuser"
-  admin_password      = "Admin@12345"
-  vm_size             = "Standard_F2"
-  location            = "central india"
-  resource_group_name = "Dev-Todo-Resource-Group"
-  todo-publisher      = "Canonical"
-  todo-offer          = "0001-com-ubuntu-server-jammy"  
-  todo-sku            = "22_04-lts"
-  todo-version        = "latest"
-}
+# module "todo-linux-VM" {
+#   depends_on = [ module.todo-nic ]
+#   source              = "../../Child Module/Azurerm_VirtualMachine"
+#   public_ip_name      = "Dev-Todo-Public-IP"
+#   todo-linux_VM       = "Dev-Todo-Linux-VM"
+#   admin_username      = "adminuser"
+#   admin_password      = "Admin@12345"
+#   vm_size             = "Standard_F2"
+#   location            = "central india"
+#   resource_group_name = "Dev-Todo-Resource-Group"
+#   todo-publisher      = "Canonical"
+#   todo-offer          = "0001-com-ubuntu-server-jammy"  
+#   todo-sku            = "22_04-lts"
+#   todo-version        = "latest"
+#}
